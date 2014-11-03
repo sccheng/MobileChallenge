@@ -26,6 +26,15 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_value_hint" />
 
+    <ImageButton
+        android:id="@+id/clearJson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clearJson"
+        android:src="@drawable/trash"
+        android:layout_gravity="end"
+        android:background="@android:color/transparent" />
+
     <Button
         android:id="@+id/runServiceInput"
         android:layout_width="wrap_content"

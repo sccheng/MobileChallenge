@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 
 public class MoreDetails extends Activity {
@@ -24,6 +25,7 @@ public class MoreDetails extends Activity {
     TextView textView;
     EditText tempKey;
     EditText tempValue;
+    private String urlString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,14 @@ public class MoreDetails extends Activity {
         button.setText(buttonName);
 
         textView = (TextView)findViewById(R.id.displayMoreResults);
-
-
         tempKey  = (EditText)findViewById(R.id.key1);
         tempValue  = (EditText)findViewById(R.id.value1);
+
+        if(service.equals("validate")) {
+            tempKey.setVisibility(View.GONE);
+        }
+
+        urlString = "http://mobilechallenge.mybluemix.net/api/" + service;
     }
 
 
@@ -71,12 +77,16 @@ public class MoreDetails extends Activity {
     public void callServiceInput(View v) {
         try {
             URL url;
-            String urlString = "http://mobilechallenge.mybluemix.net/api/" + service;
             if(service.equals("echo")) {
                 urlString += "/";
-                urlString += tempKey.getText();
-                urlString += "/" + tempValue.getText();
+                urlString += URLEncoder.encode(tempKey.getText().toString(), "UTF-8").replace("+", "%20");
+                urlString += "/" + URLEncoder.encode(tempValue.getText().toString(), "UTF-8").replace("+", "%20");
                 tempKey.setText("");
+                tempValue.setText("");
+            }
+            else { //if service.equals("validate")
+                urlString = "http://mobilechallenge.mybluemix.net/api/" + service  + "/?json=";
+                urlString += URLEncoder.encode(tempValue.getText().toString(), "UTF-8").replace("+", "%20");
                 tempValue.setText("");
             }
             url = new URL(urlString);
@@ -109,5 +119,11 @@ public class MoreDetails extends Activity {
                 }
             }
         }
+    }
+
+    public void clearJson(View v) {
+        urlString = "http://mobilechallenge.mybluemix.net/api/" + service;
+
+        textView.setText("");
     }
 }

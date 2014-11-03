@@ -83,7 +83,7 @@ public class HomeActivity extends Activity {
         String buttonText = "";
         buttonText = (String) button.getText();
 
-        if(service.equals("echo")) {
+        if(service.equals("echo") || service.equals("validate")) {
             Intent intent = new Intent(this, MoreDetails.class);
             intent.putExtra(SERVICE_NAME, service);
             intent.putExtra(BUTTON_NAME, buttonText);
