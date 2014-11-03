@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -17,33 +18,38 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class Details extends Activity {
+public class MoreDetails extends Activity {
 
     private String service = "";
     TextView textView;
+    EditText tempKey;
+    EditText tempValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_more_details);
 
-        // Get message from intent
         Intent intent = getIntent();
         service = intent.getStringExtra(HomeActivity.SERVICE_NAME);
 
         String buttonName = intent.getStringExtra(HomeActivity.BUTTON_NAME);
         Button button;
-        button = (Button)findViewById(R.id.runService);
+        button = (Button)findViewById(R.id.runServiceInput);
         button.setText(buttonName);
 
-        textView = (TextView)findViewById(R.id.displayResults);
+        textView = (TextView)findViewById(R.id.displayMoreResults);
+
+
+        tempKey  = (EditText)findViewById(R.id.key1);
+        tempValue  = (EditText)findViewById(R.id.value1);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_details, menu);
+        getMenuInflater().inflate(R.menu.menu_more_details, menu);
         return true;
     }
 
@@ -62,10 +68,17 @@ public class Details extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void callService(View v) {
+    public void callServiceInput(View v) {
         try {
             URL url;
             String urlString = "http://mobilechallenge.mybluemix.net/api/" + service;
+            if(service.equals("echo")) {
+                urlString += "/";
+                urlString += tempKey.getText();
+                urlString += "/" + tempValue.getText();
+                tempKey.setText("");
+                tempValue.setText("");
+            }
             url = new URL(urlString);
 
             HttpURLConnection con = (HttpURLConnection) url

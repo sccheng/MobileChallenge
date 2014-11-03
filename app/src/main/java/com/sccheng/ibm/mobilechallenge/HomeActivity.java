@@ -83,10 +83,18 @@ public class HomeActivity extends Activity {
         String buttonText = "";
         buttonText = (String) button.getText();
 
-        Intent intent = new Intent(this, Details.class);
-        intent.putExtra(SERVICE_NAME, service);
-        intent.putExtra(BUTTON_NAME, buttonText);
-        startActivity(intent);
+        if(service.equals("echo")) {
+            Intent intent = new Intent(this, MoreDetails.class);
+            intent.putExtra(SERVICE_NAME, service);
+            intent.putExtra(BUTTON_NAME, buttonText);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, Details.class);
+            intent.putExtra(SERVICE_NAME, service);
+            intent.putExtra(BUTTON_NAME, buttonText);
+            startActivity(intent);
+        }
     }
 
     public void getIP(View v) {

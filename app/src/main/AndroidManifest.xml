@@ -32,6 +32,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sccheng.ibm.mobilechallenge.HomeActivity" />
         </activity>
+        <activity
+            android:name="com.sccheng.ibm.mobilechallenge.MoreDetails"
+            android:label="@string/title_activity_more_details"
+            android:parentActivityName="com.sccheng.ibm.mobilechallenge.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sccheng.ibm.mobilechallenge.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
