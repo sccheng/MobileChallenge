@@ -10,16 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class HomeActivity extends Activity {
 
-    private static final String CLASS_NAME = HomeActivity.class.getSimpleName();
     public static final String SERVICE_NAME = "com.sccheng.ibm.mobilechallenge.service";
     public static final String BUTTON_NAME = "com.sccheng.ibm.mobilechallenge.button";
     TextView intro;
@@ -49,10 +41,7 @@ public class HomeActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     public void onClick(View v) {
@@ -80,7 +69,7 @@ public class HomeActivity extends Activity {
                 button = (Button)findViewById(R.id.validate);
                 break;
         }
-        String buttonText = "";
+        String buttonText;
         buttonText = (String) button.getText();
 
         if(service.equals("echo") || service.equals("validate")) {
@@ -97,85 +86,4 @@ public class HomeActivity extends Activity {
         }
     }
 
-    public void getIP(View v) {
-
-        try {
-            URL url = new URL("http://mobilechallenge.mybluemix.net/api/ip");
-            HttpURLConnection con = (HttpURLConnection) url
-                    .openConnection();
-            readStream(con.getInputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getHeaders(View v) {
-
-        try {
-            URL url = new URL("http://mobilechallenge.mybluemix.net/api/headers");
-            HttpURLConnection con = (HttpURLConnection) url
-                    .openConnection();
-            readStream(con.getInputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getDateTime(View v) {
-
-        try {
-            URL url = new URL("http://mobilechallenge.mybluemix.net/api/datetime");
-            HttpURLConnection con = (HttpURLConnection) url
-                    .openConnection();
-            readStream(con.getInputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getEcho(View v) {
-
-        try {
-            URL url = new URL("http://mobilechallenge.mybluemix.net/api/echo");
-            HttpURLConnection con = (HttpURLConnection) url
-                    .openConnection();
-            readStream(con.getInputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getValidate(View v) {
-
-        try {
-            URL url = new URL("http://mobilechallenge.mybluemix.net/api/validate");
-            HttpURLConnection con = (HttpURLConnection) url
-                    .openConnection();
-            readStream(con.getInputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void readStream(InputStream in) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                intro.setText(line);
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }

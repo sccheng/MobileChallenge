@@ -80,7 +80,7 @@ public class Details extends Activity {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 textView.setText(line);
                 System.out.println(line);

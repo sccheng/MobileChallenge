@@ -33,7 +33,8 @@
         android:onClick="clearJson"
         android:src="@drawable/trash"
         android:layout_gravity="end"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/clearJson" />
 
     <Button
         android:id="@+id/runServiceInput"

@@ -11,5 +11,10 @@
     <string name="promptUser">Click the button to run the service</string>
     <string name="promptUserInput">Input values and click the button to run the service. Click the trash icon to start over.</string>
     <string name="clearJson">Clear JSON</string>
+    <string name="ip">IP Address</string>
+    <string name="headers">HTTP Headers</string>
+    <string name="datetime">Date and Time</string>
+    <string name="echo">Echo JSON</string>
+    <string name="validate">Validate</string>
 
 </resources>
