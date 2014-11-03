@@ -1,19 +1,14 @@
 package com.sccheng.ibm.mobilechallenge;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +20,8 @@ import java.net.URL;
 public class HomeActivity extends Activity {
 
     private static final String CLASS_NAME = HomeActivity.class.getSimpleName();
+    public static final String SERVICE_NAME = "com.sccheng.ibm.mobilechallenge.service";
+    public static final String BUTTON_NAME = "com.sccheng.ibm.mobilechallenge.button";
     TextView intro;
 
     @Override
@@ -56,6 +53,40 @@ public class HomeActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View v) {
+        String service = "";
+        Button button = new Button(this);
+        switch(v.getId()) {
+            case R.id.ip:
+                service = "ip";
+                button = (Button)findViewById(R.id.ip);
+                break;
+            case R.id.headers:
+                service = "headers";
+                button = (Button)findViewById(R.id.headers);
+                break;
+            case R.id.datetime:
+                service = "datetime";
+                button = (Button)findViewById(R.id.datetime);
+                break;
+            case R.id.echo:
+                service = "echo";
+                button = (Button)findViewById(R.id.echo);
+                break;
+            case R.id.validate:
+                service = "validate";
+                button = (Button)findViewById(R.id.validate);
+                break;
+        }
+        String buttonText = "";
+        buttonText = (String) button.getText();
+
+        Intent intent = new Intent(this, Details.class);
+        intent.putExtra(SERVICE_NAME, service);
+        intent.putExtra(BUTTON_NAME, buttonText);
+        startActivity(intent);
     }
 
     public void getIP(View v) {
@@ -139,41 +170,4 @@ public class HomeActivity extends Activity {
             }
         }
     }
-
-//    public void onClick(View v) {
-//        new
-//    }
-//
-//    public void getIP(View v) {
-//
-//
-//        HttpClient httpClient = new DefaultHttpClient();
-//        HttpGet httpGet = new HttpGet("http://mobilechallenge.mybluemix.net/api/ip");
-//
-//        HttpResponse httpResponse;
-//        try{
-//            httpResponse = httpClient.execute(httpGet);
-//            BufferedReader rd = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
-//
-//
-//
-//            StringBuffer result = new StringBuffer();
-//            String line = "";
-//
-//            while ((line = rd.readLine()) != null) {
-//                result.append(line);
-//            }
-//
-//            Log.d(CLASS_NAME, line);
-//
-//        } catch (ClientProtocolException e) {
-//            Log.e(CLASS_NAME, "ClientProtocolException caught.", e);
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            Log.e(CLASS_NAME, "IOException caught.", e);
-//            e.printStackTrace();
-//        }
-//    }
-
-
 }
